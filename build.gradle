@@ -1,0 +1,58 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'maven'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('./repo'))
+            pom.project {
+                groupId = 'com.tck'
+                artifactId = 'MyPluginTrain'
+                version = '1.0.0'
+                description '学习自定义plugi'
+            }
+        }
+    }
+}
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: '远程仓库地址') {
+//                authentication(userName: '用户名xxx', password: '密码xxx')
+//            }
+//            pom.project {
+//                groupId = 'com.tck'
+//                artifactId = 'MyPluginTrain'
+//                version = '1.0.0'
+//                description '学习自定义plugi'
+//            }
+//        }
+//    }
+//}
+
+
+// java控制台输出中文乱码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile localGroovy()
+    compile gradleApi()
+}
+
+group 'com.tck'
+version '1.0.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
